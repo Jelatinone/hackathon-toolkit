@@ -54,7 +54,7 @@ States: `planned` / `in_progress` / `tested` / `demonstrated` / `deferred`. `dem
 - `STABLE-V1`: complete core demo works end-to-end and is reproducible.
 - `STABLE-V2`: sponsor differentiators proven; live integration and demo tested.
 - `RC-1`: feature freeze, no known demo-blocking bugs, video footage captured.
-- `FINAL`: deployment, video, Devpost and submission links verified.
+- `FINAL`: deployment, video, submission page and supporting links verified.
 
 ## 4. System architecture (approved)
 
