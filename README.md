@@ -22,7 +22,7 @@ Project instructions and approved PLAN govern the application. Task proposals do
 The starter maintainer initializes its Git repository and adds this repository at `toolkit/` (or another chosen path). Supply the actual repository URL; the toolkit does not initialize Git or generate an app:
 
 ```sh
-git submodule add <toolkit-repository-url> toolkit
+git submodule add https://github.com/Jelatinone/hackathon-toolkit toolkit
 ```
 
 For an existing starter checkout, initialize its recorded revision:
