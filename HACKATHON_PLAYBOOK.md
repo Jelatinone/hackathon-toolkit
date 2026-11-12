@@ -1,6 +1,6 @@
 # Hackathon Playbook — Reusable Competition Guide
 
-**Document status:** Reusable baseline v1.1  
+**Document status:** Reusable baseline v1.2
 **Audience:** Participants, team leads, idea-evaluation agents, implementation agents, and reviewers  
 **Primary goal:** Deliver a reliable, demonstrable project under a strict deadline while targeting relevant awards without compromising the product.
 
@@ -13,6 +13,8 @@ This is an operating guide, not a retrospective of one event or a particular tea
 - **Working hypotheses:** The suggested idea-scoring weights, time allocations, and presentation structures are starting points—not verified predictors of awards.
 
 Adapt these practices to the event's rules, format, duration, judging criteria, team size, and permitted tools. Check rules before coding or using AI. Do not infer why an entry won or lost solely from marketing materials or informal judge comments.
+
+Use this guide from the pinned toolkit submodule in an existing starter. The starter owns application setup and Git; the toolkit supplies [workflows and adoption instructions](README.md). Project instructions adopt the [shared contract](docs/PROJECT_CONTRACT.md), and agents use the [strict formats](docs/FORMATS.md). Canonical project documents live outside the toolkit.
 
 ## 1. Core lessons
 
@@ -95,7 +97,7 @@ Don't only ask, “What can we build?” Ask, “What decision can someone make 
 - **Competitive differentiator:** The smallest additional feature that makes the project distinct, sponsor-relevant and compelling in a demo.
 - **Stretch:** Additional scenarios, models, visuals and conveniences; add only after release gates are met.
 
-Estimate engineering uncertainty, not just surface feature count. A realistic “fire” toggle may demand significantly more modeling than a new UI view. Cut features that cannot be made credible in time. A deterministic approximation is acceptable if assumptions and limitations are stated and its results are never sold as certified facts.
+Estimate engineering uncertainty, not just surface feature count. A seemingly small interactive control may require much more underlying modeling than a new view. Cut features that cannot be made credible in time. A deterministic approximation is acceptable if assumptions and limitations are stated and its results are never sold as certified facts.
 
 ## 3. Team selection and responsibility
 
@@ -120,7 +122,7 @@ These are **accountabilities**, not permanent code silos. After the platform con
 
 ### Agree on the integration contract first
 
-At kickoff, create `PLAN.md` (template provided). Define the domain model, API/function contracts, responsibilities, data flow, external resources, environment setup, critical user journey and verification commands. Assign unique task IDs and branches from a common known-good base.
+At kickoff, inspect the existing starter and create its `PLAN.md` (template provided). Define the domain model, API/function contracts, responsibilities, data flow, external resources, environment setup, critical user journey and actual verification commands. Assign unique task IDs and branches from a common known-good base. Define approved checkpoints with dependencies, acceptance gates and cuts; do not regenerate the starter application.
 
 **One code path to the shared system.** Where possible, build adapters/mock implementations so frontend work can render real-shaped data while backend services mature. This enables parallel progress without guessing interface shapes.
 
@@ -145,15 +147,19 @@ Coding agents can be effective when given coherent batches of related implementa
 
 Do not launch overlapping agents against the same modules without a clear ownership contract. Parallelism is useful only when merge/integration overhead stays smaller than the time saved.
 
+Use separate worktrees/clones for simultaneous workers and coordinate shared test services, ports and data. If an owner becomes unavailable, the integration owner may record a reassignment after inspecting outstanding work. An unmerged dependency is not an approved baseline; stop dependent execution rather than silently merging it.
+
 ### Branches, releases and recovery
 
-- `main` is the stable trunk. No direct unverified changes or force-pushes.
+- The stable branch is configured in PLAN (`main` is a common example). No direct unverified changes or force-pushes.
 - Branch by task (example `feat/HK-014-import-flow`). Rebase/merge from an agreed base as required by team rules.
 - Commit changes with tests and the task note together.
 - Run unit/type/lint checks appropriate to the change; run a full build, integration tests and core end-to-end demonstration before merging.
 - Establish stable tags (e.g. `STABLE-V1`) at **verified user journeys**, not just completed subsystems.
 - Preserve a known-good demo environment and a documented rollback path.
 - Use a **feature cutoff**. Unready work stays on its branch and must not jeopardize submission.
+
+Bind checks to the tested revision/artifact and environment. A review verdict does not authorize merge or promotion; recheck the integrated result. After freeze, the release owner can approve bounded critical fixes with rollback and renewed evidence. Implementation finishes ready for review; checkpoint completion requires its integrated acceptance gate.
 
 **Continuity lesson:** An initial frontend/backend split may accelerate development, but it should not become a permanent dependency on specific individuals. If a contributor stops delivering, use stable tags, documented interfaces, task notes and a capacity-aware replan to keep the central demonstration viable.
 

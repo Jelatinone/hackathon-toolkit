@@ -1,31 +1,100 @@
 # Hackathon Toolkit
 
-A reusable operating guide for teams and coding agents at software-focused hackathons. It separates **competition strategy**, **agent working rules**, **the project's approved plan**, and **branch-level implementation evidence**. No specific event, product, sponsor or team is assumed.
+A project-agnostic workflow library for planning, building, managing, demonstrating, and submitting software hackathon projects. Use it as a **pinned Git submodule inside an existing starter**. The starter supplies the application, stack, Git setup, and deployment; this toolkit supplies reusable procedures and formats.
 
-## Repository layout
+## Responsibilities and sources of truth
 
-| File | Role | Where it belongs |
+| Resource | Purpose | Owner/location |
 | --- | --- | --- |
-| [`HACKATHON_PLAYBOOK.md`](HACKATHON_PLAYBOOK.md) | Human-readable principles and end-to-end competition workflow | Keep in this toolkit; refer to it before every event |
-| [`AGENTS.md`](AGENTS.md) | Reusable rules for coding/review/ideation agents | Copy into the root of each new hackathon project; adapt commands |
-| [`templates/PLAN.md`](templates/PLAN.md) | Machine-readable project baseline: goals, contracts, tasks, acceptance gates | Copy to `<project>/PLAN.md` at project kickoff |
-| [`templates/docs/changes/TASK_TEMPLATE.md`](templates/docs/changes/TASK_TEMPLATE.md) | One immutable-in-identity handoff file per assigned task/branch | Copy to `<project>/docs/changes/TASK-ID.md` |
-| [`templates/docs/DECISIONS.md`](templates/docs/DECISIONS.md) | Consolidated, accepted architectural decisions | Copy to `<project>/docs/DECISIONS.md` |
+| [Playbook](HACKATHON_PLAYBOOK.md) | Principles, lessons, human checklists, rubric | Toolkit; stays consolidated |
+| [Maintenance instructions](AGENTS.md) | How to change this library | Toolkit maintainers |
+| [Project contract](docs/PROJECT_CONTRACT.md) | Reusable project operating policy | Toolkit source; adopted by starter instructions |
+| [Formats](docs/FORMATS.md) | Strict skills, plans, reports, checkpoints | Toolkit; versioned |
+| [.agents/skills](.agents/skills) | Twelve canonical agent workflows | Toolkit; native starter adapters reference these |
+| [PLAN template](templates/PLAN.md) | Structured approved intent, commands, tasks, gates | Instantiate as starter PLAN.md at kickoff |
+| [Decision template](templates/docs/DECISIONS.md) | Accepted architecture and rationale | Instantiate as starter docs/DECISIONS.md |
+| [Task template](templates/docs/changes/TASK_TEMPLATE.md) | One task's assignment, plan and evidence | Starter docs/changes/allocated-ID.md |
 
-**Important:** Do **not** maintain one shared, constantly edited `DOCS.md` across every branch. That creates merge conflicts and mixes proposed decisions with accepted ones. The equivalent here is a **standardized task note per branch** (`docs/changes/TASK-ID.md`); an integrator updates `PLAN.md` and `docs/DECISIONS.md` only when a decision is accepted.
+Project instructions and approved PLAN govern the application. Task proposals do not override them. Actual tests establish behavior, not approval. Only the integration owner updates accepted architectural status. Do not maintain a shared multi-agent scratch DOCS.md.
 
-## Use this in a new hackathon
+## Adopt in a starter
 
-1. Before the event, each teammate prepares at least one concept using the idea brief in the Playbook. Review the event rules; ideation may be allowed before coding starts, while implementation may not be.
-2. At kickoff, compare candidate ideas against sponsor criteria, judge-facing demos, feasibility and integration risk. Select one **core demonstration**.
-3. Copy the three project templates (`AGENTS.md`, `PLAN.md`, `docs/DECISIONS.md`). Fill the project-specific values and mark unresolved assumptions plainly. Assign a release/integration owner.
-4. Agree on an API/data contract and initial vertical slice. Create task IDs *centrally*, with one branch and one `docs/changes/TASK-ID.md` per task. Assign one accountable owner per deliverable.
-5. Every agent reads `AGENTS.md`, `PLAN.md` and its task note before coding. Agents may recommend changes to the plan but do not silently rewrite shared contracts.
-6. Merge only after tests + full-user-flow verification. Tag stable milestones. The integrator incorporates accepted changes into the canonical plan and decisions ledger.
-7. Capture demo footage continuously, freeze scope before submission, and submit with a buffer.
+The starter maintainer initializes its Git repository and adds this repository at `toolkit/` (or another chosen path). Supply the actual repository URL; the toolkit does not initialize Git or generate an app:
 
-## Operating principle
+```sh
+git submodule add <toolkit-repository-url> toolkit
+```
 
-> Build one end-to-end, demonstrably useful product, with sponsor integrations that matter to the workflow. Prefer a stable, legible demonstration over an impressive list of untested features.
+For an existing starter checkout, initialize its recorded revision:
 
-The toolkit is deliberately opinionated but adaptable to each event's rules, duration, team size, technology stack and judging criteria. Rubrics and schedules are starting points rather than guarantees of winning.
+```sh
+git submodule update --init --recursive
+```
+
+Run the optional dependency-free utility with Node 20 or later from the starter root:
+
+```sh
+node toolkit/scripts/toolkit.mjs bootstrap --project .
+node toolkit/scripts/toolkit.mjs bootstrap --project . --write
+```
+
+Preview is the default. Both agents are exposed by default; use `--agents codex` or `--agents claude` to select one. Paths containing spaces must be quoted. The script resolves its own toolkit mount; no hardcoded `toolkit/` assumption or symlink is needed.
+
+Bootstrap creates small native entrypoints in `.agents/skills` and `.claude/skills`, a missing project AGENTS stub referencing the shared contract/formats, and a missing CLAUDE stub importing `@AGENTS.md`. It does **not** create PLAN, task notes, application files, Git repositories, submodules, commits, tags, dependencies, or deployments.
+
+Existing files are preserved. Intact generated files can refresh; edited adapters are conflicts. Existing project instructions with the required references/import are retained. Otherwise bootstrap prints proposed snippets, exits nonzero, and writes nothing. Integrate the snippets deliberately into existing instructions, then rerun. Review and commit generated entrypoints with the starter so teammates can use them immediately.
+
+Invoke `kickoff-project` to prepare the project baseline from the existing starter. Fill actual commands and rules, allocate IDs, approve the baseline and checkpoint, then execute assigned work. A template's example IDs and nulls never authorize implementation.
+
+## Invoke workflows
+
+In Codex CLI/IDE use `$skill-name`; in Claude Code use `/skill-name`. Descriptions also support normal skill selection. Native discovery directories differ, so the starter adapters load the canonical submodule files explicitly. [Codex documentation](https://learn.chatgpt.com/docs/build-skills), [Claude Code documentation](https://code.claude.com/docs/en/skills)
+
+The small `CLAUDE.md` import keeps shared policy in AGENTS without relying on symlinks or particular native AGENTS support. [Claude instruction documentation](https://code.claude.com/docs/en/memory#share-one-file-with-other-coding-tools)
+
+| Workflow | Use when | Result boundary |
+| --- | --- | --- |
+| [review-ideation](.agents/skills/review-ideation/SKILL.md) | Comparing ideas/tracks | Recommendation and first proof; no coding |
+| [kickoff-project](.agents/skills/kickoff-project/SKILL.md) | Starting from an existing starter | Proposed project records; no scaffolding |
+| [plan-checkpoint](.agents/skills/plan-checkpoint/SKILL.md) | Allocating bounded work | Task plans, dependencies, gates |
+| [replan-checkpoint](.agents/skills/replan-checkpoint/SKILL.md) | Capacity, progress or scope changes | Proposed cuts/reassignments; no implicit approval |
+| [implement-next-checkpoint](.agents/skills/implement-next-checkpoint/SKILL.md) | Executing approved assigned work | One checkpoint; no automatic integration |
+| [test-build](.agents/skills/test-build/SKILL.md) | Testing an identified build | Revision-bound evidence; no source repairs |
+| [review-integration](.agents/skills/review-integration/SKILL.md) | Assessing scope/contracts/evidence | Review verdict; no automatic merge |
+| [create-stable](.agents/skills/create-stable/SKILL.md) | Promoting a verified revision | Authorized unique tag; separate publication result |
+| [prepare-demo](.agents/skills/prepare-demo/SKILL.md) | Preparing or rehearsing judging | Script, proof scenes, honest rehearsal evidence |
+| [submission-preflight](.agents/skills/submission-preflight/SKILL.md) | Checking final artifacts | Readiness distinct from confirmed submission |
+| [recap-project](.agents/skills/recap-project/SKILL.md) | Orientation/retrospective | Factual state and next action; no silent writes |
+| [handoff-task](.agents/skills/handoff-task/SKILL.md) | Finishing/transferring work | Evidence and receiver instructions |
+
+All workflows use fixed metadata/sections from FORMATS, including blocked outcomes. Use the [plan](templates/AGENT_PLAN.md) and [report](templates/WORKFLOW_REPORT.md) templates. Reports normally stay in chat. Formatting alone never establishes truthful evidence or action authorization.
+
+## Manual adoption without Node
+
+1. Keep the toolkit submodule initialized at the starter's recorded revision.
+2. Add a project-root AGENTS instruction to read `toolkit/docs/PROJECT_CONTRACT.md` and `toolkit/docs/FORMATS.md`, retaining project-specific rules and explicitly naming the starter as project root. Add `@AGENTS.md` to CLAUDE.md for Claude compatibility.
+3. For each desired workflow, create its native `SKILL.md` in `.agents/skills/<name>/` and/or `.claude/skills/<name>/`. Copy only the canonical name/description frontmatter. Add a relative link to the canonical SKILL.md and instruct the agent to read it, retain the host root, and follow its formats. From a root adapter the default relative source is `../../../toolkit/.agents/skills/<name>/SKILL.md`.
+4. Treat these manual adapters as user-owned: bootstrap will not overwrite them. Automated adoption validation expects generated adapters; manual setups need manual source/reference review, or explicit replacement with the previewed generated adapters.
+5. At kickoff instantiate only project-owned PLAN, empty decisions, and allocated task notes from templates. Do not copy the full playbook or skill bodies.
+
+## Validation and upgrades
+
+```sh
+node toolkit/scripts/toolkit.mjs validate --project .
+node toolkit/scripts/toolkit.mjs validate-report path/to/report.md
+node toolkit/scripts/toolkit.mjs validate-report path/to/plan.md --kind plan
+```
+
+Project validation requires initialized native adapters, schema-v2 project records, task notes, and a registered submodule checkout matching the starter index pin. Before kickoff, a missing PLAN is an expected diagnostic. Metadata uses the documented JSON-valued YAML subset; no general YAML dependency is installed. Verdicts and required format sections are checked, but no validator can prove that evidence is real or approval genuine.
+
+If the toolkit is uninitialized, its script cannot run: execute the starter's submodule initialization first. If an adapter is stale, review the pinned upgrade and bootstrap preview. Upgrade deliberately: select/review a toolkit revision, update the starter's submodule pin, inspect format/template changes, refresh adapters, validate, and run the starter's checks. Never use an automatic latest-upstream update during project workflows. Schema-v1 project documents require a reviewed migration, not overwriting. [Git submodule documentation](https://git-scm.com/docs/git-submodule)
+
+From the toolkit repository, maintainers run:
+
+```sh
+node --test
+node scripts/toolkit.mjs validate
+git diff --check
+```
+
+Tests use temporary starter fixtures. Native-client discovery and execution are separate acceptance checks; see [behavioral scenarios](tests/SCENARIOS.md). No particular model, framework, sponsor, event, or deployment provider is required. Skills are instructions, not a sandbox or orchestration service.

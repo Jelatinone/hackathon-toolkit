@@ -1,45 +1,25 @@
-# Architectural Decisions — Accepted Only
+# Architectural decisions
 
-> This is the canonical ledger for decisions **approved by the integration owner**. Do not use it as a brainstorming file. Proposed changes live in each branch's `docs/changes/<TASK-ID>.md` until accepted. Keep entries concise and append new decisions rather than silently modifying the meaning of old ones.
+Canonical accepted decisions only. Proposed deviations stay in task notes. Preserve history and append superseding decisions; do not silently rewrite an earlier decision. Start with an empty index and add an allocated ADR record only after approval.
 
 ## Decision index
 
 | Decision ID | Date | Status | Title | Origin task | Plan version |
 | --- | --- | --- | --- | --- | --- |
-| ADR-001 | [ISO date] | accepted | [FILL] | HK-001 | 1 |
 
-## ADR-001 — [Short decision statement]
+## Accepted records
 
-```yaml
-id: ADR-001
-date: [ISO 8601]
-status: accepted # accepted | superseded
-approver: [release/integration owner]
-origin_task: HK-001
-plan_version: 1
-supersedes: null
-```
+None.
 
-**Context:** What failed or changed that made this decision necessary? Cite concrete evidence.
+For each accepted decision, replace None with `### ADR-001` (allocated ID), then a YAML block containing these keys: `id`, `date`, `status`, `approver`, `approval_ref`, `origin_task`, `plan_version`, `supersedes`. Use JSON-valued YAML. Status is accepted or superseded; supersedes is null or an earlier ADR ID.
 
-**Decision:** State the chosen interface/model/runtime behavior precisely. Link the affected contract (`CT-###`) and modules.
+Use these H4 fields in order for each record: Context; Decision; Reasoning; Affected consumers and migrations; Verification and gate; Consequences and rollback; Source.
 
-**Reasoning:** Why this option rather than a simpler alternative? Mention time and integration costs.
+Context cites evidence; Decision names the contract/version and modules; Reasoning includes simpler alternatives and integration cost; Verification names actual results or required gates; Source links the originating task and revision.
 
-**Affected consumers and migrations:** Who needs to adapt? Is data migration or service redeploy required?
+## Integration procedure
 
-**Verification / gate:** Tests or demonstration proving the decision is safe enough.
-
-**Consequences and rollback:** What new limitations are introduced? How can the change be reversed?
-
-**Source:** `docs/changes/HK-001.md`, commit `[SHA]`.
-
----
-
-## How to add a decision
-
-1. Read the proposed deviation in its task note.
-2. Review effects on the core demo, existing contracts and other branches.
-3. Accept/reject/defer explicitly, assigning a unique `ADR-###` only if accepted.
-4. Update the corresponding `PLAN.md` contract and plan version in the same integration step.
-5. Record tested results, impacted consumers and the final merge SHA in both locations.
+1. Read the proposed deviation and affected consumers.
+2. Explicitly accept/reject/defer; allocate an ADR only for acceptance.
+3. Synchronize PLAN, plan version, approval reference, and the decision before dependent implementation.
+4. Record integrated verification and merge SHA once available; do not claim future evidence.

@@ -1,86 +1,99 @@
-# TASK-ID — Short, outcome-focused title
+# Task outcome and evidence
 
-> Copy to `docs/changes/HK-###.md` **when creating the task**. One file per task/branch. The assigned agent or developer owns it throughout implementation. This records actual evidence and *proposed*, not automatically approved, contract deviations.
+Instantiate in the starter's docs/changes using an allocated ID. The author owns implementation evidence; reviewer/integration owner owns review and merge fields after handoff. Example IDs are not allocations.
 
 ```yaml
-schema_version: 1
-id: HK-###
-status: planned  # planned | in_progress | blocked | ready_for_review | merged | deferred
-branch: feat/HK-###-topic
-base_ref: [stable tag or SHA]
-owner: [FILL]
-created_at: [ISO 8601]
-updated_at: [ISO 8601]
-plan_version_at_start: [integer]
-feature_ids: [F-###]
-contract_ids: [CT-###]
-depends_on: [HK-###]
-owned_paths: [paths]
+schema_version: 2
+id: "HK-001"
+checkpoint_id: "CP-001"
+status: "planned"
+branch: "feat/HK-001-foundation"
+base_ref: null
+owner: null
+created_at: null
+updated_at: null
+plan_version_at_start: 0
+feature_ids: ["F-001"]
+contract_ids: ["CT-001"]
+depends_on: []
+owned_paths: []
 ```
 
 ## 1. Outcome and acceptance
 
-**One-sentence objective:** [FILL]
+**Objective:** unresolved. **Visible flow:** Given starting condition, when action, then observable result. Include a representative input and meaningful edge case. **Out of scope:** unresolved. **Cut/fallback:** unresolved.
 
-**Visible acceptance flow:**
+## 2. Implementation plan
 
-1. Given [starting condition]
-2. When [user action / API call]
-3. Then [observable result and precise expected outcome]
+### Objective
 
-**Out of scope:** [FILL]  
-**Cut/fallback if delayed:** [FILL]
+Unresolved.
 
-## 2. Implementation plan (brief, before coding)
+### Scope and exclusions
 
-| Step | Change area | Test/proof | Dependency |
-| --- | --- | --- | --- |
-| 1 | [FILL] | [FILL] | [FILL] |
+Unresolved.
+
+### Inputs and baseline
+
+Unresolved.
+
+### Ordered steps
+
+| Step | Outcome | Task IDs | Owned paths | Dependencies | Verification |
+| --- | --- | --- | --- | --- | --- |
+| 1 | Unresolved | HK-001 | Unresolved | None | Unresolved |
+
+### Acceptance and verification
+
+Unresolved.
+
+### Risks and rollback
+
+Unresolved.
+
+### Decisions requiring approval
+
+Unresolved.
 
 ## 3. Actual changes and evidence
 
-**Delivered behavior:** [Describe what works, not just changed filenames]
+**Delivered behavior:** None yet.
 
-| Commit SHA | Paths/components | Observable behavior |
+| Revision/artifact | Paths/components | Observable behavior |
 | --- | --- | --- |
-| [FILL] | [FILL] | [FILL] |
+| None | None | Not implemented |
 
-**Verification results:**
+| Check | Revision/artifact | Environment | Expected | Observed | Status |
+| --- | --- | --- | --- | --- | --- |
+| Acceptance | None | None | Defined flow | Not implemented | not_run |
 
-| Command or E2E action | Environment | Expected | Observed | Pass/fail/not-run |
-| --- | --- | --- | --- | --- |
-| [FILL] | [FILL] | [FILL] | [FILL] | not-run |
+**Known limitations / not tested:** unresolved. Evidence must identify dirty working trees accurately; recheck changed code/environment/scope.
 
-**Known limitations / NOT tested:** [FILL]
+## 4. Proposed deviations
 
-## 4. Proposed deviations (the key integration section)
+| Change ID | Approved baseline / contract | Proposed deviation | Reason | Impacted consumers | Alternatives | Approval state | Approval reference |
+| --- | --- | --- | --- | --- | --- | --- | --- |
 
-| Change ID | Approved baseline / contract | Proposed deviation | Reason | Impacted consumers | Alternatives | Approval state |
-| --- | --- | --- | --- | --- | --- | --- |
-| DEV-001 | [CT-###, exact version] | [FILL] | [FILL] | [FILL] | [FILL] | proposed |
-
-Approval states: `proposed` / `accepted` / `rejected` / `superseded`. **Do not silently alter `PLAN.md` or consumer interfaces** because this row exists; contact the integration owner. When approved, the integrator assigns a decision ID in `docs/DECISIONS.md` and updates the canonical plan if needed.
-
-If there are **no deviations**, write **None — contracts preserved**. This explicit statement is useful during merge review.
+None — contracts preserved. If this changes, replace that statement with proposal rows. States: proposed, accepted, rejected, superseded. A proposal does not approve changes; the integration owner synchronizes accepted decisions and PLAN.
 
 ## 5. Handoff and merge gate
 
-- [ ] Owned paths only, or cross-owner edits explicitly coordinated.
-- [ ] Acceptance behavior demonstrable with representative input.
-- [ ] Unit tests + edge tests pass (actual commands listed above).
-- [ ] Typecheck/build/lint recorded or clearly marked not run.
-- [ ] Shared contracts unchanged **or** deviations approved.
-- [ ] E2E user journey verified (or honestly marked unverified).
-- [ ] Secrets and private data absent from changes.
-- [ ] Fallback/rollback documented.
+- [ ] Owned scope or explicit cross-owner agreement.
+- [ ] Representative behavior and edge case verified.
+- [ ] Required checks pass; unavailable checks block readiness; inapplicable checks have reasons.
+- [ ] Contracts preserved or deviations approved.
+- [ ] Required real integrations and core journey verified.
+- [ ] No secrets/private data in changes.
+- [ ] Rollback and unfinished work recorded.
 
 ```yaml
-reviewer: [FILL]
-review_status: pending  # pending | approved | rejected
-integration_commit: [FILL]
-merged_at: [ISO 8601 or null]
-stable_release_including_change: [tag or null]
-rollback: [command/tag/feature flag]
+reviewer: null
+review_status: "pending"
+approval_ref: null
+integration_commit: null
+merged_at: null
+stable_release_including_change: null
+rollback: null
 ```
 
-**Short integrator note:** [What must happen before merge and which team members need to know]
+**Integrator note:** what must happen before merge, who receives ownership, environment prerequisites, and next action. Task statuses: planned, in_progress, blocked, ready_for_review, merged, deferred. Review statuses: pending, approved, rejected.

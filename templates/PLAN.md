@@ -1,152 +1,173 @@
-# PLAN.md — Project Canonical Baseline
+# Project canonical baseline
 
-> Copy to the root of a new hackathon project at kickoff. `PLAN.md` records **approved intent** and contracts, not stream-of-consciousness implementation activity. Branch-local details go in `docs/changes/<TASK-ID>.md`. The integrator updates this file at stable gates and when changes are explicitly approved.
+Create in the starter at kickoff, never in the toolkit. Fill nulls from evidence; the example IDs are not allocations. Approved intent and contracts live here; branch evidence lives in task notes. Remove unused examples. Configuration is authoritative here only.
 
 ```yaml
-schema_version: 1
-project_name: [FILL]
-event_name: [FILL]
-project_status: ideation  # ideation | build | feature_freeze | submission | complete
+schema_version: 2
+project_name: null
+event_name: null
+project_status: "ideation"
 plan_version: 0
-updated_at: [ISO 8601]
-code_start: [ISO 8601]
-feature_freeze: [ISO 8601]
-submission_deadline: [ISO 8601]
-release_owner: [FILL]
-base_release: [initial sha or tag]
-current_stable_release: [sha or tag]
+approval: "proposed"
+approval_ref: null
+updated_at: null
+timezone: null
+code_start: null
+code_end: null
+feature_freeze: null
+submission_deadline: null
+release_owner: null
+stable_branch: null
+base_release: null
+current_stable_release: null
 ```
 
 ## 1. Product contract
 
 ```yaml
-primary_user: [FILL]
-user_problem: [FILL]
-user_decision_improved: [FILL]
-one_sentence_promise: [FILL]
-core_demo: [start state -> action -> measured/observed result]
-30_second_demo: [FILL]
-3_minute_demo: [FILL]
-claim_boundaries: [what must never be claimed]
+primary_user: null
+user_problem: null
+user_decision_improved: null
+one_sentence_promise: null
+core_demo: null
+demo_30_seconds: null
+demo_3_minutes: null
+claim_boundaries: null
 ```
 
-**Do not add features just because they sound impressive.** All features must support the core demo, satisfy a meaningful sponsor requirement, or be explicitly authorized stretch work.
+Features support the core demonstration, meaningful track requirements, or explicitly approved stretch work. Separate implemented and hypothetical claims.
 
-## 2. Sponsor requirements and proofs
+## 2. Event requirements and proofs
+
+| Requirement ID | Official source and exact clause | Verified at | Constraint/proof | Owner | State | Evidence/limitation |
+| --- | --- | --- | --- | --- | --- | --- |
+| RULE-001 | Unresolved | null | Eligibility, AI/pre-existing code, license, judging, artifact and access rules | Unassigned | planned | Unverified |
 
 | Track ID | Exact prompt clause/source | Essential technology/capability | Proof scene | Current state | Gap/limitation |
 | --- | --- | --- | --- | --- | --- |
-| SP-01 | [FILL] | [FILL] | [FILL] | planned | [FILL] |
+| SP-001 | Unresolved | Unresolved | Unresolved | planned | Unverified |
 
-States: `planned` / `in_progress` / `tested` / `demonstrated` / `deferred`. `demonstrated` requires actual evidence, not only working mocked data.
+States: planned, in_progress, tested, demonstrated, deferred. Demonstrated needs real evidence. Use None with a reason when no sponsor track applies. Official dates appear only in header metadata and include offsets.
 
 ## 3. Scope tiers and release gates
 
 | ID | Tier | Outcome | Dependencies | Measurable acceptance | Owner | State |
 | --- | --- | --- | --- | --- | --- | --- |
-| F-001 | CORE | [Smallest full user journey] | none | [E2E step/result] | [FILL] | planned |
-| F-002 | COMPETITIVE | [Primary technical differentiator] | F-001 | [Observed proof] | [FILL] | planned |
-| F-003 | STRETCH | [Cuttable enhancement] | F-002 | [Observed proof] | [FILL] | deferred |
+| F-001 | CORE | Smallest complete user journey | None | Unresolved | Unassigned | planned |
 
-**Release gates** (replace examples with project-specific facts):
+Replace these examples with project-specific gates; stable promotion must name the exact gate and evidence:
 
-- `STABLE-V0`: skeleton starts, contracts declared, test harness runs.
-- `STABLE-V1`: complete core demo works end-to-end and is reproducible.
-- `STABLE-V2`: sponsor differentiators proven; live integration and demo tested.
-- `RC-1`: feature freeze, no known demo-blocking bugs, video footage captured.
-- `FINAL`: deployment, video, submission page and supporting links verified.
+- STABLE-V0: starter runs, contracts declared, test harness runs.
+- STABLE-V1: core demo reproducible end-to-end.
+- STABLE-V2: required differentiators and live integrations proven.
+- RC-1: feature freeze, no demo-blocking bugs, footage captured.
+- FINAL: release, video, submission artifacts and links verified.
 
-## 4. System architecture (approved)
+## 4. System architecture
 
-```text
-[User/UI] -> [Client boundary/API] -> [Backend/model] -> [Persistence/service]
-                                        |-> [Async runner/AI, if any]
-```
+Describe the actual starter's modules, boundaries, and data flow. Do not impose a web architecture on another kind of application.
 
-| Module/owner | Responsibility | Inputs/outputs | Public contract ID | Backend/mock compatibility |
+| Module/owner | Responsibility | Inputs/outputs | Public contract ID | Mock/live compatibility |
 | --- | --- | --- | --- | --- |
-| [FILL] | [FILL] | [FILL] | CT-001 | [FILL] |
+| Unassigned | Unresolved | Unresolved | CT-001 | Unverified |
 
-**Critical contracts** (keep concise, explicit and versioned):
-
-### CT-001 — [Interface name]
+### CT-001
 
 ```yaml
 version: 1
-owner: [FILL]
-consumers: [[FILL]]
-input_schema: [file/type reference]
-output_schema: [file/type reference]
-errors: [expected failure modes]
-concurrency_semantics: [ordering/replay/idempotency/none]
-tests: [path or command]
+owner: null
+consumers: []
+input_schema: null
+output_schema: null
+errors: null
+concurrency_semantics: null
+tests: null
 ```
 
-If a contract changes, create a proposed deviation in the task note. Change this section only after approval and coordinate every consumer.
+Propose deviations in task notes. Synchronize approved decisions and contracts before dependent implementation; coordinate consumers.
 
-## 5. Work packages and parallel lanes
+## 5. Work packages and checkpoints
 
-| Task ID | Branch | Owner | Owned paths | Dependency IDs | Acceptance / test | Status |
-| --- | --- | --- | --- | --- | --- | --- |
-| HK-001 | feat/HK-001-foundation | [FILL] | [FILL] | none | [FILL] | planned |
+| Task ID | Checkpoint ID | Branch | Owner | Owned paths | Dependency IDs | Acceptance / test | Status |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| HK-001 | CP-001 | feat/HK-001-foundation | Unassigned | Unresolved | None | Unresolved | planned |
 
-Rules: Assign IDs centrally. One owner, one branch, one `docs/changes/<TASK-ID>.md`. Don't assign multiple agents overlapping ownership unless integration owner coordinates it. An owner who goes unavailable must explicitly hand off unfinished work and environment requirements.
+IDs are centrally allocated. One owner, branch, isolated working directory, and note per task. The integration owner records reassignments after inspecting outstanding work. Coordinate shared runtime resources. Checkpoint order below is execution order; task_ids order breaks ties among eligible tasks.
+
+### CP-001
+
+```yaml
+id: "CP-001"
+objective: null
+task_ids: ["HK-001"]
+depends_on: []
+owner: null
+approval: "proposed"
+approval_ref: null
+status: "planned"
+acceptance_gate: null
+cut_fallback: null
+evidence_ref: null
+```
+
+Approval: proposed, approved, rejected. Status: planned, in_progress, blocked, ready_for_review, complete, deferred. Complete requires approved integration and gate evidence. Ready-for-review implementation alone is insufficient.
 
 ## 6. Technical verification and deployment
 
 ```yaml
-runtime_version: [FILL]
-package_manager: [FILL]
-install: [FILL]
-unit_tests: [FILL]
-typecheck: [FILL]
-lint: [FILL]
-build: [FILL]
-integration_e2e: [FILL]
-run_demo: [FILL]
-external_services: [[FILL]]
-secrets_location: .env  # gitignored, never committed
+runtime_version: null
+package_manager: null
+install: null
+unit_tests: null
+typecheck: null
+lint: null
+build: null
+integration_e2e: null
+run_demo: null
+external_services: []
+secrets_location: null
+test_environment: null
 ```
 
-**Canonical E2E demonstration:**
+Discover commands from the starter. Use null plus a reason below for genuinely inapplicable checks; do not invent commands. Never store secrets here.
 
-1. [Starting condition]
-2. [User action]
-3. [Observable data/result]
-4. [Second action demonstrating differentiator]
-5. [Measured result; limitations]
+**Canonical demonstration:** starting condition → user action → observable result → differentiator → measured result and limitations.
 
-**Release/rollback:** [FILL with tag, hosting target, known-good environment and steps].
+**Release/rollback:** exact hosting target, known-good environment, revision/artifact, restore steps, and owner approval.
 
 ## 7. Known risks, unknowns and cuts
 
 | Risk ID | Probability/impact | Earliest proof | Owner | Fallback/cut trigger |
 | --- | --- | --- | --- | --- |
-| R-001 | [FILL] | [test + deadline] | [FILL] | [FILL] |
+| R-001 | Unresolved | Test and deadline | Unassigned | Unresolved |
 
-Cut order (lowest user/track value first): `[FILL]`. If team capacity drops, re-scope immediately. No agent should expand the roadmap without approval.
+**Cut order:** unresolved. Replan when capacity changes. After freeze, only owner-approved critical fixes with rollback and renewed evidence.
 
 ## 8. Demo, video and submission
 
 ```yaml
-presenter: [FILL]
-video_owner: [FILL]
-submission_owner: [FILL]
-script_frozen_at: [ISO 8601]
-video_rough_cut_at: [ISO 8601]
-feature_freeze_at: [ISO 8601]
-upload_start_at: [ISO 8601]
-submission_deadline: [ISO 8601]
+presenter: null
+video_owner: null
+submission_owner: null
+script_frozen_at: null
+video_rough_cut_at: null
+upload_start_at: null
 ```
 
 | Scene ID | Claim to prove | Screen action | Recording owner | Footage path | Status |
 | --- | --- | --- | --- | --- | --- |
-| VID-01 | [FILL] | [FILL] | [FILL] | [FILL] | planned |
+| VID-001 | Unresolved | Unresolved | Unassigned | None | planned |
 
-## 9. Approved updates / gate log
-
-| Plan version | Date | Release | Accepted task IDs / ADR IDs | Updated by | Why |
+| Artifact | Requirement ID | Revision/version | Location | Access/playback check | Evidence |
 | --- | --- | --- | --- | --- | --- |
-| 0 | [FILL] | initial | none | [FILL] | Initial approved baseline |
+| Submission | RULE-001 | None | None | not_run | Not submitted |
 
-**Canonical update rule:** The release/integration owner updates this after accepting branch notes, and records substantial architecture decisions in `docs/DECISIONS.md`. The history remains in git; do not paste full agent conversations here.
+**Submission receipt:** record platform confirmation ID/location and timestamp after observing it. A draft is not submitted. Refer to header deadlines; do not repeat them here.
+
+## 9. Approved updates and gate log
+
+| Plan version | Date | Release | Accepted task IDs / ADR IDs | Updated by | Approval/evidence | Why |
+| --- | --- | --- | --- | --- | --- | --- |
+| 0 | null | None | None | Unassigned | None | Proposed kickoff |
+
+Only the authorized integration owner updates canonical status. Record significant accepted architecture decisions in DECISIONS; Git retains history. Do not paste agent transcripts.
